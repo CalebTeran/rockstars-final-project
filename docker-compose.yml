@@ -1,0 +1,54 @@
+version: '3'
+services:
+  postgres_db18:
+    image: postgres:14-alpine
+    container_name: "postgresdb${port}"
+    environment:
+      - "POSTGRES_PASSWORD=${PSQL_PASS}"
+      - "POSTGRES_DB=${PSQL_DB}"
+      - "POSTGRES_USER=${PSQL_USER}"
+    ports:
+      - "100${port}:55${port}"
+    volumes:
+      - "${POSTGRES_VOLUME_PATH}:/usr/src/postgres"
+    networks:
+      - our-library-net
+    command: -p 5518
+
+  web18:
+    build:
+      context: front_app
+      dockerfile: ./front_app/Dockerfile
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && pytest && python manage.py runserver 0.0.0.0:80${port}"
+    container_name: "django${port}"
+    depends_on: 
+      - postgres_db18
+    environment:
+      - "PSQL_DBNAME=${PSQL_DBNAME}"
+      - "PSQL_USERNAME=${PSQL_USER}"
+      - "PSQL_PASS=${PSQL_PASS}"
+      - "PSQL_HOST=postgres_db${port}"
+      - "PSQL_PORT=55${port}"
+    volumes:
+      - "${DJANGO_VOLUME_PATH}:/usr/src/django/music_app"
+    ports:
+      - "90${port}:80${port}"
+    networks:
+      - our-library-net
+  
+  front18:
+    build:
+      context: front_app
+      dockerfile: ./front_app/Dockerfile
+    container_name: "react${port}"
+    volumes:
+      - "${REACT_VOLUME_PATH}:/usr/src/react/music_app"
+    ports:
+      - "30${port}:30${port}"
+    networks:
+      - our-library-net
+
+networks:
+  our-library-net:
+    external: true
+    driver: bridge
