@@ -2,36 +2,37 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
-class Orders(models.Model):
-	total = models.DecimalField(max_digits = 15, decimal_places = 2)
-	subtotal = models.DecimalField(max_digits = 10, decimal_places = 2)
-	created_at = models.DateTimeField(auto_now_add=True, null=True)
-	updated_at = models.DateTimeField(auto_now=True,null=True)
-	need_shipment = models.BooleanField(default=False)
-	# books_authors = models.OneToOneField(Author, through='BookAuthor')
-
-class Shipments(models.Model):
-    class Status(models.TextChoices):
-        COMPLETED = 'COMPLETED', _('Completed')
-        ON_WAY = 'ON_WAY', _('On way')
-        DIGITAL = 'DIGITAL', _('Digital')
-        IN_PROCESS = 'IN_PROCESS', _('In process')
+class Albums(models.Model):
 	
-    status = models.CharField(max_length=24, choices=Status.choices, default=Status.IN_PROCESS )
+    class Type(models.TextChoices):
+        PHYSICAL = 'PHYSICAL', _('Physical')
+        VIRTUAL = 'VIRTUAL', _('Virtual')
 
-class Payments(models.Model):
+    name = models.TextField(max_length = 225, null = False)
+    type = models.CharField(max_length=24, choices=Type.choices, default=Type.VIRTUAL )
+    virtual_price = models.DecimalField(max_digits = 15, decimal_places = 2)
+    physical_price = models.DecimalField(max_digits = 15, decimal_places = 2)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,)
+    duration = models.DurationField()
+    file = models.FileField(upload_to=None, max_length=254)
+    #fk genres array genre id´s
 
-    class Status(models.TextChoices):
-        PAID = 'PAID', _('Paid')
-        IN_PROCESS = 'IN_PROCESS', _('In process')
-        PENDING = 'PENDING', _('Pending')
-        CANCEL = 'CANCEL', _('Cancel')
+class Genre(models.Model):
+	name = models.TextField(max_length = 225, null = False)
 
-    class Methods(models.TextChoices):
-        CARD = 'CARD', _('Card')
-        DEBIT_CARD = 'DEBIT_CARD', _('Debit card')
-        OTHER = 'OTHER', _('Other')
+class Authors(models.Model):
+	name = models.TextField(max_length = 225, null = False)
+	nationality = models.TextField(max_length = 225, null = False)
+	albums = models.TextField(max_length = 225, null = False)
+	image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,)
+   #top field array of songs id´s 
 
-    status = models.CharField(max_length=24, choices=Status.choices, default=Status.PAID )
-    payment_method = models.CharField(max_length=24, choices=Methods.choices, default=Methods.CARD )
-    # books_authors = models.OneToOneField(Author, through='BookAuthor')
+class Songs(models.Model):
+    name = models.TextField(max_length = 225, null = False)
+    duration = models.DurationField()
+    file = models.FileField(upload_to=None, max_length=254)
+    is_single = models.BooleanField(default=False)
+    price = models.DecimalField(max_digits = 10, decimal_places = 2)
+    # fk albumid
+    #fk2 authors array id´s
