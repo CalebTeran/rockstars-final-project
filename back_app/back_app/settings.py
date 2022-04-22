@@ -10,10 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from os import getenv, environ as env
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,11 +27,21 @@ SECRET_KEY = 'django-insecure-d1r8j=2w9zowv+9)hb(ix!&&pc#t7r9-v+2izt=*_@&%u+$8tb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+# Mercado pago settings
+MERCADOPAGO = {
+    'autoprocess': True,
+    'success_url': 'myapp:mp_success',
+    'failure_url': 'myapp:mp_failure',
+    'pending_url': 'myapp:mp_pending',
+    'base_host': env.get('PSQL_HOST'),
+}
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,8 +49,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'drf_yasg',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    'market',
+    'music',
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -47,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'back_app.urls'
@@ -68,6 +87,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'back_app.wsgi.application'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env.get('PSQL_DBNAME'),
+        'USER': env.get('PSQL_USERNAME'),
+        'PASSWORD': env.get('PSQL_PASS'),
+        'PORT': env.get('PSQL_PORT'), # 'PORT': 5432
+    }
+}
 
 
 # Database

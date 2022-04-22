@@ -12,7 +12,7 @@ services:
     volumes:
       - "${POSTGRES_VOLUME_PATH}:/usr/src/postgres"
     networks:
-      - our-library-net
+      - our-library-net 
     command: -p 5518
 
   web18:
