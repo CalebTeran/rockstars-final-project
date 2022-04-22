@@ -18,7 +18,7 @@ class Albums(models.Model):
     file = models.FileField(upload_to=None, max_length=254)
     #fk genres array genre id´s
 
-class Genre(models.Model):
+class Genres(models.Model):
 	name = models.TextField(max_length = 225, null = False)
 
 class Authors(models.Model):
