@@ -2,13 +2,13 @@ version: '3'
 services:
   postgres_db18:
     image: postgres:14-alpine
-    container_name: "postgres${port}"
+    container_name: "postgres${PORT}"
     environment:
       - "POSTGRES_PASSWORD=${PSQL_PASS}"
       - "POSTGRES_DB=${PSQL_DB}"
       - "POSTGRES_USER=${PSQL_USER}"
     ports:
-      - "100${port}:55${port}"
+      - "10018:5518"
     volumes:
       - "${POSTGRES_VOLUME_PATH}:/usr/src/postgres"
     networks:
@@ -17,20 +17,20 @@ services:
 
   web18:
     build: .
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && pytest && python manage.py runserver 0.0.0.0:80${port}"
-    container_name: "django${port}"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:80${PORT}"
+    container_name: "django${PORT}"
     depends_on: 
       - postgres_db18
     environment:
-      - "PSQL_DBNAME=${PSQL_DBNAME}"
+      - "PSQL_DBNAME=${PSQL_DB}"
       - "PSQL_USERNAME=${PSQL_USER}"
       - "PSQL_PASS=${PSQL_PASS}"
-      - "PSQL_HOST=postgres_db${port}"
-      - "PSQL_PORT=55${port}"
+      - "PSQL_HOST=postgres_db${PORT}"
+      - "PSQL_PORT=55${PORT}"
     volumes:
       - "${DJANGO_VOLUME_PATH}:/usr/src/django/music_app"
     ports:
-      - "90${port}:80${port}"
+      - "90${PORT}:80${PORT}"
     networks:
       - our-library-net
   
