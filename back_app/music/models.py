@@ -17,7 +17,7 @@ class Albums(models.Model):
     image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,)
     duration = models.DurationField()
     file = models.FileField(upload_to=None, max_length=254)
-    stock = models.IntegerField(max_digits = 15, default= 0.00)
+    stock = models.IntegerField( validators=[MinValueValidator(1), MaxValueValidator(100)], default= 0.00)
 
     #fk genres array genre id´s
 
@@ -37,6 +37,6 @@ class Songs(models.Model):
     file = models.FileField(upload_to=None, max_length=254)
     is_single = models.BooleanField(default=False)
     price = models.DecimalField(max_digits = 10, decimal_places = 2)
-    stock = models.IntegerField(max_digits = 15, default= 0.00)
+    stock = models.IntegerField( validators=[MinValueValidator(1), MaxValueValidator(100)], default= 0.00)
     # fk albumid
     #fk2 authors array id´s
