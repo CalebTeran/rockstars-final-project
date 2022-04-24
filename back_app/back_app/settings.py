@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'django_filters',
     'market',
     'music',
     'users',
@@ -133,6 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
     'DEFAULT_PERMISSION_CLASSES': [
         #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
@@ -142,7 +144,7 @@ REST_FRAMEWORK = {
 
 from datetime import timedelta
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=int(30)),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=int(280)),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ALGORITHM': 'HS256',
     'AUTH_HEADER_TYPES': ('Bearer',),
