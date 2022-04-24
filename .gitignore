@@ -1,0 +1,15 @@
+*.log
+#folders
+**/back_app/market/migrations
+**/back_app/music/migrations
+**/back_app/users/migrations
+.back_app/market/migrations/*
+.back_app/music/migrations/*
+.back_app/users/migrations/*
+# Files
+*.pyc
+*.mp3
+*.jpg
+__init__.py
+#envs
+.env.dev
