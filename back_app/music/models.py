@@ -7,15 +7,17 @@ class Albums(models.Model):
     class Type(models.TextChoices):
         PHYSICAL = 'PHYSICAL', _('Physical')
         VIRTUAL = 'VIRTUAL', _('Virtual')
+        BOTH = 'BOTH', _('Both')
 
     name = models.TextField(max_length = 225, null = False)
-    type = models.CharField(max_length=24, choices=Type.choices, default=Type.VIRTUAL )
-    virtual_price = models.DecimalField(max_digits = 15, decimal_places = 2)
-    physical_price = models.DecimalField(max_digits = 15, decimal_places = 2)
+    type = models.CharField(max_length=24, choices=Type.choices, default=Type.BOTH )
+    virtual_price = models.DecimalField(max_digits = 15, decimal_places = 2, default= 0.00)
+    physical_price = models.DecimalField(max_digits = 15, decimal_places = 2, default= 0.00)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,)
     duration = models.DurationField()
     file = models.FileField(upload_to=None, max_length=254)
+
     #fk genres array genre id´s
 
 class Genres(models.Model):

@@ -3,11 +3,12 @@ from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 class Orders(models.Model):
-	total = models.DecimalField(max_digits = 15, decimal_places = 2)
-	subtotal = models.DecimalField(max_digits = 10, decimal_places = 2)
-	created_at = models.DateTimeField(auto_now_add=True, null=True)
-	updated_at = models.DateTimeField(auto_now=True,null=True)
-	need_shipment = models.BooleanField(default=False)
+    total = models.DecimalField(max_digits = 15, decimal_places = 2)
+    subtotal = models.DecimalField(max_digits = 10, decimal_places = 2)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True,null=True)
+    need_shipment = models.BooleanField(default=False)
+    albums_id = models.TextField(max_length = 255, null = True)
 	# books_authors = models.OneToOneField(Author, through='BookAuthor')
 
 class Shipments(models.Model):
