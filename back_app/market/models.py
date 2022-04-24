@@ -35,4 +35,5 @@ class Payments(models.Model):
 
     status = models.CharField(max_length=24, choices=Status.choices, default=Status.PAID )
     payment_method = models.CharField(max_length=24, choices=Methods.choices, default=Methods.CARD )
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
     # books_authors = models.OneToOneField(Author, through='BookAuthor')
