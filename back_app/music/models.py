@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
-# Create your models here.
+
+class Genres(models.Model):
+    name = models.TextField(max_length = 225, null = False)
 
 class Albums(models.Model):
 	
@@ -19,18 +21,14 @@ class Albums(models.Model):
     file = models.TextField(null=False, default= 0)
     duration = models.DurationField()
     stock = models.IntegerField( validators=[MinValueValidator(0), MaxValueValidator(100)], default= 0.00)
-
-    #fk genres array genre id´s
-
-class Genres(models.Model):
-	name = models.TextField(max_length = 225, null = False)
+    genres = models.ForeignKey(Genres, on_delete= models.DO_NOTHING)
 
 class Authors(models.Model):
-	name = models.TextField(max_length = 225, null = False)
-	nationality = models.TextField(max_length = 225, null = False)
-	albums = models.TextField(max_length = 225, null = False)
-	image = models.TextField(null=False, default= 0)
-   #top field array of songs id´s 
+    name = models.TextField(max_length = 225, null = False)
+    nationality = models.TextField(max_length = 225, null = False)
+    albums = models.TextField(max_length = 225, null = False)
+    image = models.TextField(null=False, default= 0)
+    alumbs = models.ForeignKey(Albums, on_delete= models.DO_NOTHING)
 
 class Songs(models.Model):
     name = models.TextField(max_length = 225, null = False)
@@ -40,5 +38,4 @@ class Songs(models.Model):
     file = models.TextField(null=False, default= 0)
     price = models.DecimalField(max_digits = 10, decimal_places = 2)
     stock = models.IntegerField( validators=[MinValueValidator(0), MaxValueValidator(100)], default= 0.00)
-    # fk albumid
-    #fk2 authors array id´s
+    authors = models.ForeignKey(Authors, on_delete= models.DO_NOTHING)
