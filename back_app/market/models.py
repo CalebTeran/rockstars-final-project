@@ -1,29 +1,13 @@
+from operator import truediv
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from music.models import Albums, Songs 
+from users.models import User 
 #from payments import PurchasedItem
 #from payments.models import BasePayment
 
 from typing import Iterable
 from decimal import Decimal
-# Create your models here.
-
-class Orders(models.Model):
-    total = models.DecimalField(max_digits = 15, decimal_places = 2)
-    subtotal = models.DecimalField(max_digits = 10, decimal_places = 2)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True,null=True)
-    need_shipment = models.BooleanField(default=False)
-    albums_id = models.TextField(max_length = 255, null = True)
-	# books_authors = models.OneToOneField(Author, through='BookAuthor')
-
-class Shipments(models.Model):
-    class Status(models.TextChoices):
-        COMPLETED = 'COMPLETED', _('Completed')
-        ON_WAY = 'ON_WAY', _('On way')
-        DIGITAL = 'DIGITAL', _('Digital')
-        IN_PROCESS = 'IN_PROCESS', _('In process')
-	
-    status = models.CharField(max_length=24, choices=Status.choices, default=Status.IN_PROCESS )
 
 class Payments(models.Model):
 
@@ -61,3 +45,25 @@ class Payments(models.Model):
     #         price=Decimal(10),
     #         currency='USD',
     #     )
+
+class Orders(models.Model):
+    total = models.DecimalField(max_digits = 15, decimal_places = 2)
+    subtotal = models.DecimalField(max_digits = 10, decimal_places = 2)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True,null=True)
+    need_shipment = models.BooleanField(default=False)
+    albums = models.TextField(max_length = 255, null = True)
+    albums_id = models.ForeignKey(Albums, on_delete= models.DO_NOTHING, null=True)
+    songs_id = models.ForeignKey(Songs, on_delete= models.DO_NOTHING, null=True)
+    payment = models.OneToOneField(Payments,on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING, default= 0)
+
+class Shipments(models.Model):
+    class Status(models.TextChoices):
+        COMPLETED = 'COMPLETED', _('Completed')
+        ON_WAY = 'ON_WAY', _('On way')
+        DIGITAL = 'DIGITAL', _('Digital')
+        IN_PROCESS = 'IN_PROCESS', _('In process')
+	
+    status = models.CharField(max_length=24, choices=Status.choices, default=Status.IN_PROCESS )
+    order = models.OneToOneField(Orders,on_delete=models.CASCADE, primary_key=True, default= 0)

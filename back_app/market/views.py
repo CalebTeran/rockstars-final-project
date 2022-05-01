@@ -11,7 +11,7 @@ from .models import *
 from .serializers import *
 
 class ShipmentsViewSet(viewsets.ModelViewSet):
-    queryset = Shipments.objects.all().order_by('id')
+    queryset = Shipments.objects.all().order_by('order')
     serializer_class = ShipmentsSerializer
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]

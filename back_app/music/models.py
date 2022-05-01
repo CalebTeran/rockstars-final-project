@@ -21,14 +21,14 @@ class Albums(models.Model):
     file = models.TextField(null=False, default= 0)
     duration = models.DurationField()
     stock = models.IntegerField( validators=[MinValueValidator(0), MaxValueValidator(100)], default= 0.00)
-    genres = models.ForeignKey(Genres, on_delete= models.DO_NOTHING)
+    genres = models.ForeignKey(Genres, on_delete= models.DO_NOTHING, null=True)
 
 class Authors(models.Model):
     name = models.TextField(max_length = 225, null = False)
     nationality = models.TextField(max_length = 225, null = False)
     albums = models.TextField(max_length = 225, null = False)
     image = models.TextField(null=False, default= 0)
-    alumbs = models.ForeignKey(Albums, on_delete= models.DO_NOTHING)
+    albums = models.ForeignKey(Albums, on_delete= models.DO_NOTHING, null=True)
 
 class Songs(models.Model):
     name = models.TextField(max_length = 225, null = False)
@@ -38,4 +38,4 @@ class Songs(models.Model):
     file = models.TextField(null=False, default= 0)
     price = models.DecimalField(max_digits = 10, decimal_places = 2)
     stock = models.IntegerField( validators=[MinValueValidator(0), MaxValueValidator(100)], default= 0.00)
-    authors = models.ForeignKey(Authors, on_delete= models.DO_NOTHING)
+    authors = models.ForeignKey(Authors, on_delete= models.DO_NOTHING, null=True)
