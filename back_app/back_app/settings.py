@@ -33,12 +33,26 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 # Mercado pago settings
+PAYMENT_HOST = env.get('HOST')
+PAYMENT_USES_SSL = False
+PAYMENT_MODEL = 'market.Payments'
+
+CHECKOUT_PAYMENT_CHOICES = [('MercadoPago', 'Mercado Pago')]
+PAYMENT_VARIANTS = {
+    'MercadoPago':(
+        'payments_mercadopago.MercadoPagoProvider',
+        {
+        'access_token': 'TEST-5869176846318590-042423-64f021ef524e370f5361c63035f0cc16-670430024',
+        "sandbox": DEBUG,
+        })
+}
+
 MERCADOPAGO = {
     'autoprocess': True,
     'success_url': 'myapp:mp_success',
     'failure_url': 'myapp:mp_failure',
     'pending_url': 'myapp:mp_pending',
-    'base_host': env.get('PSQL_HOST'),
+    'base_host': env.get('HOST'),
 }
 
 # Application definition
@@ -51,6 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'drf_yasg',
+    #'payments_mercadopago',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',

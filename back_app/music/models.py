@@ -15,10 +15,10 @@ class Albums(models.Model):
     virtual_price = models.DecimalField(max_digits = 15, decimal_places = 2, default= 0.00)
     physical_price = models.DecimalField(max_digits = 15, decimal_places = 2, default= 0.00)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
-    image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,)
+    image = models.TextField(null=False, default= 0)
+    file = models.TextField(null=False, default= 0)
     duration = models.DurationField()
-    file = models.FileField(upload_to=None, max_length=254)
-    stock = models.IntegerField( validators=[MinValueValidator(1), MaxValueValidator(100)], default= 0.00)
+    stock = models.IntegerField( validators=[MinValueValidator(0), MaxValueValidator(100)], default= 0.00)
 
     #fk genres array genre id´s
 
@@ -29,15 +29,16 @@ class Authors(models.Model):
 	name = models.TextField(max_length = 225, null = False)
 	nationality = models.TextField(max_length = 225, null = False)
 	albums = models.TextField(max_length = 225, null = False)
-	image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,)
+	image = models.TextField(null=False, default= 0)
    #top field array of songs id´s 
 
 class Songs(models.Model):
     name = models.TextField(max_length = 225, null = False)
     duration = models.DurationField()
-    file = models.FileField(upload_to=None, max_length=254)
+    image = models.TextField(null=False, default= 0)
     is_single = models.BooleanField(default=False)
+    file = models.TextField(null=False, default= 0)
     price = models.DecimalField(max_digits = 10, decimal_places = 2)
-    stock = models.IntegerField( validators=[MinValueValidator(1), MaxValueValidator(100)], default= 0.00)
+    stock = models.IntegerField( validators=[MinValueValidator(0), MaxValueValidator(100)], default= 0.00)
     # fk albumid
     #fk2 authors array id´s

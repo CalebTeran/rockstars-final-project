@@ -1,5 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+#from payments import PurchasedItem
+#from payments.models import BasePayment
+
+from typing import Iterable
+from decimal import Decimal
 # Create your models here.
 
 class Orders(models.Model):
@@ -37,3 +42,22 @@ class Payments(models.Model):
     payment_method = models.CharField(max_length=24, choices=Methods.choices, default=Methods.CARD )
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     # books_authors = models.OneToOneField(Author, through='BookAuthor')
+    # def get_failure_url(self) -> str:
+    #     # Return a URL where users are redirected after
+    #     # they fail to complete a payment:
+    #     return 'http://example.com/failure/'
+
+    # def get_success_url(self) -> str:
+    #     # Return a URL where users are redirected after
+    #     # they successfully complete a payment:
+    #     return 'http://example.com/success/'
+
+    # def get_purchased_items(self) -> Iterable[PurchasedItem]:
+    #     # Return items that will be included in this payment.
+    #     yield PurchasedItem(
+    #         name='The Hound of the Baskervilles',
+    #         sku='BSKV',
+    #         quantity=9,
+    #         price=Decimal(10),
+    #         currency='USD',
+    #     )

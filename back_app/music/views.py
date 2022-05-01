@@ -9,10 +9,21 @@ from .models import *
 from .serializers import *
 
 
-
 class AlbumsViewSet(viewsets.ModelViewSet):
     queryset = Albums.objects.all()
     serializer_class = AlbumsSerializer
+    parser_classes = (JSONParser, FormParser, MultiPartParser,)
+    def post(self, request):
+        name = request.data['name']
+        image = request.data['image']
+        sz = AlbumsSerializer(data=request.data)
+        print('SERIALIZER',sz)
+        response = Response()
+        response.data = {
+            'name': name,
+            'image': image,
+        }
+        return response
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     filter_backends = [filters.SearchFilter]
     search_fields = ['name','stock']
@@ -26,6 +37,18 @@ class GenresViewSet(viewsets.ModelViewSet):
 
 class SongsViewSet(viewsets.ModelViewSet):
     queryset = Songs.objects.all().order_by('id')
+    parser_classes = (JSONParser, FormParser, MultiPartParser,)
+    def post(self, request):
+        name = request.data['name']
+        image = request.data['image']
+        sz = Songs(data=request.data)
+        print('SERIALIZER',sz)
+        response = Response()
+        response.data = {
+            'name': name,
+            'image': image,
+        }
+        return response
     serializer_class = SongsSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     filter_backends = [filters.SearchFilter]

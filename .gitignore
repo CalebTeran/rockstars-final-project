@@ -14,3 +14,6 @@ __init__.py
 #envs
 .env.dev
 *.sqlite3
+**/backapp/makret/__pycache__
+**/backapp/music/__pycache__
+**/backapp/users/migrations

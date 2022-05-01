@@ -27,6 +27,7 @@ services:
       - "PSQL_PASS=${PSQL_PASS}"
       - "PSQL_HOST=postgres_db${PORT}"
       - "PSQL_PORT=55${PORT}"
+      - "DJANGO_HOST=${HOST}"
     volumes:
       - "${DJANGO_VOLUME_PATH}:/usr/src/django/music_app"
     ports:
