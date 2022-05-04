@@ -1,16 +1,15 @@
 import { Genre } from "./genre";
 import { Singer } from "./singer";
+import { Song } from "./song";
 
 export interface Album {
   _id: string;
   name: string;
-  duration: string;
-  type: Array<string>;
-  virtualPrice: number;
-  physicalPrice: number;
-  createdAt: Date;
-  image: string;
-  author: Singer;
-  genre: Array<Genre>;
+  singer: Singer;
+  releaseDate: Date;
+  songs: Song[];
+  price: number;
+  genre: Genre;
   stock: number;
+  image: string;
 }

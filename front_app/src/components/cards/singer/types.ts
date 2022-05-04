@@ -1,4 +1,4 @@
 export interface SingerCardProps {
-    image: string;
-    name: string;
-  }
+  image: string;
+  name: string;
+}

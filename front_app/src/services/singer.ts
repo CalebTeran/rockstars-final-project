@@ -6,7 +6,7 @@ import { Singer } from "../models/singer";
 export const getSingers = () => async (dispatch: AppDispatch) => {
   try {
     dispatch(setLoading(true));
-    const response = await fetch("http://3.218.67.164:9018/v1/singer");
+    const response = await fetch("http://localhost:8000/singer");
 
     if (response.status !== 200) return "";
 
