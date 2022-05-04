@@ -1,7 +1,6 @@
+from .models import User
+
 from django.contrib.auth.models import Group
-from library.users.models import User
-
-
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken, TokenError

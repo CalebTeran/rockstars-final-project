@@ -1,14 +1,14 @@
 from django.contrib.auth.models import Group
-# Changes
-from library.users.models import User
+from .models import User
+from .serializers import UserSerializer, RefreshTokenSerializer, GroupSerializer
 
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView
 from rest_framework import permissions
-from library.users.serializers import UserSerializer, RefreshTokenSerializer, GroupSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.exceptions import  AuthenticationFailed
 
 class UserViewSet(viewsets.ModelViewSet):
     """

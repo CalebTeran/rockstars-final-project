@@ -33,12 +33,26 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 # Mercado pago settings
+PAYMENT_HOST = env.get('HOST')
+PAYMENT_USES_SSL = False
+PAYMENT_MODEL = 'market.Payments'
+
+CHECKOUT_PAYMENT_CHOICES = [('MercadoPago', 'Mercado Pago')]
+PAYMENT_VARIANTS = {
+    'MercadoPago':(
+        'payments_mercadopago.MercadoPagoProvider',
+        {
+        'access_token': 'TEST-5869176846318590-042423-64f021ef524e370f5361c63035f0cc16-670430024',
+        "sandbox": DEBUG,
+        })
+}
+
 MERCADOPAGO = {
     'autoprocess': True,
     'success_url': 'myapp:mp_success',
     'failure_url': 'myapp:mp_failure',
     'pending_url': 'myapp:mp_pending',
-    'base_host': env.get('PSQL_HOST'),
+    'base_host': env.get('HOST'),
 }
 
 # Application definition
@@ -51,11 +65,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'drf_yasg',
+    #'payments_mercadopago',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'django_filters',
     'market',
     'music',
+    'users',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -110,6 +127,45 @@ DATABASES = {
 }
 
 
+# Password validation
+# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
+AUTH_USER_MODEL = 'users.User'
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
+    'DEFAULT_PERMISSION_CLASSES': [
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        
+    ]
+}
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=int(280)),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ALGORITHM': 'HS256',
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'ROTATE_REFRESH_TOKENS' : False,
+    'BLACKLIST_AFTER_ROTATION': False
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
