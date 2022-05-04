@@ -1,14 +1,16 @@
 # pull the official base image
-FROM node:13.12.0-alpine
+FROM node:14-alpine
 # set working direction
 WORKDIR /app
+
+# copy packages for install
+COPY ./package.json /app
+COPY ./yarn.lock  /app
+
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
-# install application dependencies
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm i
-# add app
-COPY . ./
-# start app
-CMD ["npm", "start"]
+
+# copy app to my container
+COPY . .
+# install npm dependencies
+RUN yarn install

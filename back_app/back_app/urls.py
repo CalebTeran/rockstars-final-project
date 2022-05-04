@@ -3,24 +3,39 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from graphene_django.views import GraphQLView
+from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-# JWT URLs
+
+
+# Graphql URLs
 urlpatterns = [
-    path('apiv1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('apiv1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('v1/graphql', GraphQLView.as_view(graphiql=True)),
+    path('v1/graphql', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ] 
 
+# JWT URLs
+urlpatterns += [
+    path('v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+] 
 
+# JWT URLs
+urlpatterns += [
+    path('v1/paypal/', include('paypal.standard.ipn.urls')),
+] 
+
+#Apps endpoinds
 urlpatterns += [
     path('admin/', admin.site.urls),
-    path('apiv1/market/', include('market.urls')),
-    path('apiv1/music/', include('music.urls')),
-    path('apiv1/auth/', include('rest_framework.urls')),
-    path('apiv1/users/', include('users.urls')),
+    path('v1/market/', include('market.urls')),
+    path('v1/music/', include('music.urls')),
+    path('v1/auth/', include('rest_framework.urls')),
+    path('v1/users/', include('users.urls')),
 ]
 
 
@@ -42,3 +57,10 @@ urlpatterns += [
    re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
+
+# #Mercado pago
+# urlpatterns += [
+#     url(r'^mercadopago/', include('django_mercadopago.urls'), namespace='mp'),
+# # Make sure namespace is 'mp', since we assume it is for notification URL
+# # contruction.
+# ]

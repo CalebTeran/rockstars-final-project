@@ -6,9 +6,34 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 
 from payments import get_payment_model, RedirectNeeded
+from paypal.standard.forms import PayPalPaymentsForm
 
 from .models import *
 from .serializers import *
+
+def process_payment(request):
+    order_id = request.session.get('order_id')
+    order = get_object_or_404(Order, id=order_id)
+    host = request.get_host()
+
+    paypal_dict = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': '%.2f' % order.total_cost().quantize(
+            Decimal('.01')),
+        'item_name': 'Order {}'.format(order.id),
+        'invoice': str(order.id),
+        'currency_code': 'USD',
+        'notify_url': 'http://{}{}'.format(host,
+                                           reverse('paypal-ipn')),
+        'return_url': 'http://{}{}'.format(host,
+                                           reverse('payment_done')),
+        'cancel_return': 'http://{}{}'.format(host,
+                                              reverse('payment_cancelled')),
+    }
+
+    form = PayPalPaymentsForm(initial=paypal_dict)
+    return render(request, 'ecommerce_app/process_payment.html', {'order': order, 'form': form})
+
 
 class ShipmentsViewSet(viewsets.ModelViewSet):
     queryset = Shipments.objects.all().order_by('order')

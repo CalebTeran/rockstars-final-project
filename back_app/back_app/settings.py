@@ -10,9 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+
 from os import getenv, environ as env
 from pathlib import Path
-
+import django
+from django.utils.encoding import force_str
+django.utils.encoding.force_text = force_str
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -69,11 +72,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'paypal.standard.ipn',
+    "graphene_django",
     'django_filters',
     'market',
     'music',
     'users',
 ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -84,6 +90,19 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": 'redis://' + env.get('REDIS_HOST') + \
+        ':' + env.get('REDIS_PORT') + '/0',
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
 
 ROOT_URLCONF = 'back_app.urls'
 
@@ -183,6 +202,17 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+#Paypal variables
+
+PAYPAL_RECEIVER_EMAIL = 'youremail@mail.com'
+#paypal sandbox 
+PAYPAL_TEST = True
+
+#Graphql
+GRAPHENE = {
+    "SCHEMA": "back_app.schema.schema"
+}
 
 
 # Internationalization
