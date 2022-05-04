@@ -13,35 +13,34 @@
 ## Run my Containers
 1. Running my docker-compose file:
 > docker-compose --env-file .env.dev up --build
-[React app will run in the port 11018] (http://3.218.67.164:11018)
-[Django app will run in the port 9018] (http://3.218.67.164:9018)
-[Postgres will run in the port 10018] (http://3.218.67.164:10018)
-[Redis will run in the port 11018] (http://3.218.67.164:12018)
-My ports ends in 18 because that was assigned to me but you only need to change this one for your port.
-
 ## How to set my own docker containers for the project
-### First of all we need to know the structure of our repo
+### First of all we need to know the structure of our repo.
+
+```mermaid
 graph TD;
-    Root_folder-->Back_app;
-    Root_folder-->Front_app;
+    Z[Project Folder] -->|Here is Django docker-compose.yml| A(Root Folder);
+    A[Root Folder] -->|Here is Django Dockerfile| B(Back_app Folder);
+    A[Root Folder] -->|Here is React Dockerfile| C(Front_app Folder);
+```
+
 In the Root_folder we have our docker-compose.yml which call the others container for run our apps
 Back_app in this folder we have the dockerfile which have de Django config.
 Front_app in this folder we have the dockerfile which have de React config.
 ### So what i need to edit for set my containers?
-1. Edit our enviroment file, this could be .env.dev or .env.example with our info and port
-2. Change de name of the container to avoid conflicts
-3. Change the port in the .env file of the front_app
-4. Change th port in the package.json in the line of start in the front_app
+1. Edit our enviroment file, this could be .env.dev or .env.example with ***our info and port***
+2. Change de name of the containers to avoid conflicts For example: ***react18 to reactXX*** Where XX is your port.
+3. Change the port ***for your port*** in the ***.env*** file of the front_app
+4. Change the port ***for your port*** in the ***package.json*** in the line of start in the front_app
 5. Reubicate your dir to root and run the docker compose file with:
 > docker-compose --env-file .env.dev up --build
 
 ## Run my Containers
 1. Running my docker-compose file:
 > docker-compose --env-file .env.dev up --build
-[React app will run in the port 11018] (http://3.218.67.164:11018)
-[Django app will run in the port 9018] (http://3.218.67.164:9018)
-[Postgres will run in the port 10018] (http://3.218.67.164:10018)
-[Redis will run in the port 11018] (http://3.218.67.164:12018)
+React app will run in the port 11018 [ReactApp](http://3.218.67.164:11018).<br />
+Django app will run in the port 9018 [DjangoApp](http://3.218.67.164:9018).<br />
+Postgres will run in the port 10018 [PostgresDB](http://3.218.67.164:10018).<br />
+Redis will run in the port 11018 [RedisBD](http://3.218.67.164:12018).<br />
 My ports ends in 18 because that was assigned to me but you only need to change this one for your port.
 
 
