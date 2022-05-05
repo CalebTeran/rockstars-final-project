@@ -7,6 +7,9 @@
 ### ER Diagram / databse structure
 ![](./ER_diagram.png)
 
+### Uses case diagram
+![](./use_cases.png)
+
 ### App requirements
 El proyecto final debe constar de una tienda de música, ésta tienda permitirá comprar al usuario final dos tipos de canciones: físicas y virtuales. Si el formato es físico obviamente no va a poder comprar una canción solamente a menos que sea un disco del tipo "Single", tendrá que comprar todo el álbum. 
 
