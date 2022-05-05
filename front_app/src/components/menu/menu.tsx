@@ -9,7 +9,6 @@ import {
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import AlbumIcon from "@mui/icons-material/Album";
 import { NavButton } from "./types";
-import MenuIcon from "@mui/icons-material/AutoAwesomeMosaic";
 import { useMemo, useState } from "react";
 import { Styles } from "../../theme/types";
 import { useNavigate } from "react-router-dom";
@@ -23,18 +22,18 @@ import MicExternalOnIcon from "@mui/icons-material/MicExternalOn";
 
 const Menu = () => {
   const [adminOpen, setAdminOpen] = useState(false);
-
+  const navigate = useNavigate();
   const toggleAdminMenu = () => {
     setAdminOpen((actualValue) => !actualValue);
   };
 
-  const navigate = useNavigate();
-
+  
+  
   const Buttons: NavButton[] = useMemo(
     () => [
       {
-        text: "Explore",
-        icon: <MenuIcon />,
+        text: "Enroute Music",
+        icon: <img src={require("../../enroute.jpg") } alt="logo" width={25} height={25} />,
         onClick: () => navigate("/"),
       },
       {
