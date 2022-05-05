@@ -9,7 +9,6 @@
 # Files
 *.pyc
 *.mp3
-*.jpg
 __init__.py
 #envs
 .env.dev
