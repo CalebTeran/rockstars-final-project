@@ -57,10 +57,10 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./front_app
-    command: yarn run start
+    command: sh -c "yarn install && yarn run start"
     container_name: "react${PORT}"
     volumes:
-      - "${REACT_VOLUME_PATH}:/usr/src/react/"
+      - "${REACT_VOLUME_PATH}:/app"
     ports:
       - "110${PORT}:110${PORT}"
     networks:
