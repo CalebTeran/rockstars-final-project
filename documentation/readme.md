@@ -10,6 +10,9 @@
 ### Uses case diagram
 ![](./use_cases.png)
 
+### Front end design based in:
+![](https://cdn.dribbble.com/users/836485/screenshots/17914029/media/3270206d0a347b56c69387148b0626ef.jpg?compress=1&resize=1000x750&vertical=top)
+This design is not of my propiety, check de author profile in: [Author profile](https://dribbble.com/shots/17914029-MeMusic-Artist-profile)
 ### App requirements
 El proyecto final debe constar de una tienda de música, ésta tienda permitirá comprar al usuario final dos tipos de canciones: físicas y virtuales. Si el formato es físico obviamente no va a poder comprar una canción solamente a menos que sea un disco del tipo "Single", tendrá que comprar todo el álbum. 
 
