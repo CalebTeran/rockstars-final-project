@@ -56,3 +56,34 @@ You will need to delete those containers which are already created by docker-com
 > docker-compose --env-file .env.dev up --build
 5. If everything is working your console will look like this: <br />
 ![Console Running](./documentation/assets/containers_running.jpg)
+
+- Issue #2 Your Django migrations have conflict with other migrations in process or other issue with migrations. In this case i reset from zero the migrations.
+1. Do makemigration for every app
+> python manage.py makemigrations users
+> python manage.py makemigrations market
+> python manage.py makemigrations music
+2. Reset every migration by zero
+> python manage.py migrate --fake music zero
+> python manage.py migrate --fake market zero
+> python manage.py migrate --fake users zero 
+3. Enter to your container
+> docker exec -it djangoXX or my contianerID bash
+4. Inside of your container run your migrations 
+> pyhton manage.py migrate
+
+- Issue #3 Your migrations doesn't work or you need to reset all of your postgres DB
+1. Remove all your containers
+> docker-compose down
+
+2. Remove your postgres dir
+> rm -rf postgres
+
+3. Recreate your postgres dir
+> mkdir postgres
+
+4. Delete your migrations files
+
+5. Run your docker compose build
+> docker-compose --env-file .env.dev up --build
+
+

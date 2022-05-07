@@ -43,7 +43,6 @@ services:
       - "PSQL_PASS=${PSQL_PASS}"
       - "PSQL_HOST=postgres_db${PORT}"
       - "PSQL_PORT=55${PORT}"
-      - "DJANGO_HOST=${HOST}"
       - "REDIS_HOST=redis_service${PORT}"
       - "REDIS_PORT=63${PORT}"
     volumes:
