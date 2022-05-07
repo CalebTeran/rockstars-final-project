@@ -18,6 +18,7 @@ const App = () => {
       flexDirection: "column",
       padding: "40px",
       overflow: "hidden",
+      backgroundColor: "#000002",
     },
   };
 

@@ -7,6 +7,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import AlbumIcon from "@mui/icons-material/Album";
 import { NavButton } from "./types";
 import { useMemo, useState } from "react";
@@ -46,6 +47,11 @@ const Menu = () => {
         icon: <AlbumIcon />,
         onClick: () => navigate("/albums"),
       },
+      {
+        text: "My profile",
+        icon: <ManageAccountsIcon />,
+        onClick: () => navigate("/profile"),
+      },
     ],
     [navigate]
   );
@@ -79,9 +85,13 @@ const Menu = () => {
   const styles: Styles = useMemo(
     () => ({
       drawerContainer: {
+        backgroundColor: "#000002",
+        color: "#F4F5F6",
         width: "200px",
       },
       drawerItem: {
+        backgroundColor: "#000002",
+        color: "#F4F5F6",
         width: "200px",
       },
     }),

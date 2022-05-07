@@ -1,13 +1,18 @@
-import { Box, Typography } from "@mui/material";
-import AlbumCard from "../../components/cards/album/component";
-import SingerCard from "../../components/cards/singer/component";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+
+import { Grid, Button, Avatar, Box, Typography } from "@mui/material";
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+import { albumsSelector, singersSelector } from "../../features/musicSlice";
+import { useAppSelector } from "../../app/hooks";
 import { Styles } from "../../theme/types";
 import { getSingers } from "../../services/singer";
 import { getAlbums } from "../../services/album";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { useAppSelector } from "../../app/hooks";
-import { albumsSelector, singersSelector } from "../../features/musicSlice";
+import AlbumCard from "../../components/cards/album/component";
+import SingerCard from "../../components/cards/singer/component";
 
 const Explore = () => {
   const dispatch = useDispatch();
@@ -22,9 +27,16 @@ const Explore = () => {
 
   const styles: Styles = {
     title: {
+      textAlign:"center",
       fontWeight: "Bold",
       width: "500px",
-      padding: "20px 0",
+      padding: "20px,10px",
+    },
+    subtitleInfo: {
+      textAlign:"center",
+      fontWeight: "600",
+      padding: "10px 30px",
+      color: "gray",
     },
     subtitle: {
       fontWeight: "600",
@@ -33,6 +45,7 @@ const Explore = () => {
     },
     albumsContainer: {
       width: "100%",
+      border: '1px solid #558464',
     },
     albumsList: {
       width: "100%",
@@ -40,9 +53,11 @@ const Explore = () => {
       overflowX: "auto",
       gap: "60px",
       paddingBottom: "20px",
+      border: '1px solid #558464',
     },
     singerContainer: {
       width: "100%",
+      border: '1px solid #558464',
     },
     singerList: {
       width: "100%",
@@ -50,16 +65,56 @@ const Explore = () => {
       overflowX: "auto",
       gap: "60px",
       paddingBottom: "20px",
+      border: '1px solid #558464',
+    },
+    infoContainer: {
+      width: "100%",
+      display: "flex",
+      overflowX: "auto",
+      gap: "30px",
+      border: '1px solid #558464',
+      paddingLeft: "20px",
+    },
+    imageInfo: {
+      width: "20%",
+      height: "95%",
+    },
+    musicBtn: {
+      margin: "20px 15px",
+      width: "85%",
+      height: "25%",
     },
   };
 
   return (
     <>
+      <Box sx={styles.infoContainer}>
+      <Avatar alt="currentAlbum" src="/../../enroute.jpg" sx={styles.imageInfo} />
+      <Box>
       <Typography variant="h2" sx={styles.title}>
-        Escucha a tus artistas favoritos en el mejor lugar.
+        My Author info.
       </Typography>
+      <Typography variant="h6" sx={styles.subtitleInfo}>
+        Albums authors sales: 321,399. ~ Reproduction quantity: 933,994.
+      </Typography>
+        <Box sx={styles.musicBtn}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={8}>              
+              <Button sx={{width: "100%"}} variant="outlined" startIcon={<PlayCircleIcon />}>
+                Play music
+              </Button>
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <FavoriteIcon />
+              <ShoppingCartIcon />          
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+        
+      </Box>
       <Box sx={styles.albumsContainer}>
-        <Typography variant="h6" sx={styles.subtitle}>
+        <Typography variant="h5" sx={styles.subtitle}>
           Últimos álbumes.
         </Typography>
         <Box sx={styles.albumsList}>
@@ -72,7 +127,7 @@ const Explore = () => {
           ))}
         </Box>
         <Box sx={styles.singersContainer}>
-          <Typography variant="h6" sx={styles.subtitle}>
+          <Typography variant="h5" sx={styles.subtitle}>
             Los artistas más escuchados.
           </Typography>
           <Box sx={styles.singerList}>

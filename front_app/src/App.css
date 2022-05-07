@@ -2,4 +2,7 @@
   height: 100%;
   display: grid;
   grid-template-columns: 200px auto;
+  background-color:  #000002;
+  color: #F4F5F6;
 }
+
