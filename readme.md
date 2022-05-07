@@ -42,6 +42,17 @@ Postgres will run in the port 10018 [PostgresDB](http://3.218.67.164:10018).<br 
 Redis will run in the port 11018 [RedisBD](http://3.218.67.164:12018).<br />
 My ports ends in 18 because that was assigned to me but... you only need to change this one for your port.
 
+## How to make request to my microservice
+If you run the project and everything is working well, you can see my enpoinds and <br /> play with those in my [Postman workspace](https://www.postman.com/calebtd/workspace/rockstars-microservice/overview).<br />
+
+1. Enter to mu worksapce "Rockstars microservice"
+![Postman workspace](./documentation/assets/postman_workspace.png)
+2. Set the enviroment vars 
+![Postman enviroment](./documentation/assets/postman_env.png)
+3. Get token for the permissions request and set in the env
+![Get Token](./documentation/assets/postman_get_token.png)
+4. Feel free to use the other request 
+![Post request](./documentation/assets/Postman_post.png)
 
 ## Solving your issues
 - Issue #1 Running docker-compose up --build shows "You have a duplicated container name, change the name or delete this container": 

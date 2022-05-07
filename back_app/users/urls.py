@@ -8,6 +8,7 @@ router.register(r'groups', GroupViewSet)
 
 urlpatterns = [
 	path('login', LoginView.as_view()),
+	path('signin', SigninView.as_view()),
     path('logout', LogoutView.as_view(), name='auth_logout'),
 	path('', include(router.urls)),
 ]

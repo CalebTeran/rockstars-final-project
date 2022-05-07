@@ -42,6 +42,31 @@ class LoginView(APIView):
         }
         return response
 
+class SigninView(APIView):
+    def post(self, request):
+        email = request.data['email']
+        username = request.data['username']
+        password = request.data['password']
+        type = request.data['type']
+
+        user = User.objects.filter(email=email).first()
+
+        if user is None:
+            raise AuthenticationFailed('Email is not register yet!')
+
+        if not user.check_password(password):
+            raise AuthenticationFailed('Incorrect password!')
+
+        response = Response()
+
+        response.data = {
+            'id': user.id,
+            'email': user.email,
+            #changes
+            'type': user.type
+        }
+        return response
+
 class LogoutView(GenericAPIView):
     serializer_class = RefreshTokenSerializer
     permission_classes = (permissions.IsAuthenticated, )
