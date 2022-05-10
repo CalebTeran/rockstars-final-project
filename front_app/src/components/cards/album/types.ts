@@ -1,6 +1,6 @@
 export interface AlbumCardProps {
   image: string;
   name: string;
-  songs: number;
+  duration: string;
   stock: number;
 }

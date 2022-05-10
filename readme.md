@@ -1,3 +1,9 @@
+# Music_app (Rockstars Final project).
+This is a little store of music, where you can add repoduce some music and buy this one.
+
+## myLib documentation
+[See the Documentation Here!](documentation/readme.md)
+
 ## Setup the project
 ### Installing docker compose
 
@@ -53,6 +59,9 @@ If you run the project and everything is working well, you can see my enpoinds a
 ![Get Token](./documentation/assets/postman_get_token.png)
 4. Feel free to use the other request 
 ![Post request](./documentation/assets/Postman_post.png)
+
+Or if you request are running on the explorer you could see the swagger schema of the enpoinds.<br />
+![HERE!](http://3.218.67.164:9018/swagger/) 
 
 ## Solving your issues
 - Issue #1 Running docker-compose up --build shows "You have a duplicated container name, change the name or delete this container": 

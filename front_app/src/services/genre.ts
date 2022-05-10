@@ -17,7 +17,7 @@ import { Genre } from "../models/genre";
 export const getGenres = () => async (dispatch: AppDispatch) => {
   try {
     dispatch(setLoading(true));
-    const response = await fetch("http://localhost:8000/genre");
+    const response = await fetch("");
 
     if (response.status !== 200) return "";
 
@@ -34,7 +34,7 @@ export const fetchDeleteGenre =
   (id: string, index: number) => async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
-      const response = await fetchAuth(`http://localhost:8000/genre/${id}`, {
+      const response = await fetchAuth(`${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export const fetchAddGenre =
   (createGenreDTO: CreateGenreDTO) => async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
-      const response = await fetchAuth("http://localhost:8000/genre", {
+      const response = await fetchAuth("", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -80,7 +80,7 @@ export const fetchUpdateGenre =
     try {
       dispatch(setLoading(true));
       const response = await fetchAuth(
-        `http://localhost:8000/genre/${genrePosition.id}`,
+        ``,
         {
           method: "PATCH",
           headers: {

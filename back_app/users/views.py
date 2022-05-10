@@ -50,13 +50,7 @@ class SigninView(APIView):
         type = request.data['type']
 
         user = User.objects.filter(email=email).first()
-
-        if user is None:
-            raise AuthenticationFailed('Email is not register yet!')
-
-        if not user.check_password(password):
-            raise AuthenticationFailed('Incorrect password!')
-
+        
         response = Response()
 
         response.data = {

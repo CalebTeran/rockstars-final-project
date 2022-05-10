@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Styles } from "../../../theme/types";
 import { AlbumCardProps } from "./types";
 
-const AlbumCard: FC<AlbumCardProps> = ({ image, songs, stock, name }) => {
+const AlbumCard: FC<AlbumCardProps> = ({ image, duration, stock, name }) => {
   const styles: Styles = {
     container: {
       width: "300px",
@@ -39,7 +39,7 @@ const AlbumCard: FC<AlbumCardProps> = ({ image, songs, stock, name }) => {
       <img style={imageStyle} src={image} alt={`album-${name}`} />
       <Typography sx={styles.title}>{name}</Typography>
       <Box sx={styles.bottom}>
-        <Typography sx={styles.info}>{`${songs} Songs`}</Typography>
+        <Typography sx={styles.info}>{`${duration} Duration`}</Typography>
         <Typography sx={styles.info}>{`Stock (${stock})`}</Typography>
       </Box>
     </Box>

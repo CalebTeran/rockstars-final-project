@@ -45,7 +45,6 @@ const Explore = () => {
     },
     albumsContainer: {
       width: "100%",
-      border: '1px solid #558464',
     },
     albumsList: {
       width: "100%",
@@ -53,11 +52,9 @@ const Explore = () => {
       overflowX: "auto",
       gap: "60px",
       paddingBottom: "20px",
-      border: '1px solid #558464',
     },
     singerContainer: {
       width: "100%",
-      border: '1px solid #558464',
     },
     singerList: {
       width: "100%",
@@ -65,19 +62,18 @@ const Explore = () => {
       overflowX: "auto",
       gap: "60px",
       paddingBottom: "20px",
-      border: '1px solid #558464',
     },
     infoContainer: {
       width: "100%",
       display: "flex",
       overflowX: "auto",
       gap: "30px",
-      border: '1px solid #558464',
       paddingLeft: "20px",
     },
     imageInfo: {
-      width: "20%",
-      height: "95%",
+      margin:"auto",
+      width: "18%",
+      height: "90%",
     },
     musicBtn: {
       margin: "20px 15px",
@@ -89,7 +85,7 @@ const Explore = () => {
   return (
     <>
       <Box sx={styles.infoContainer}>
-      <Avatar alt="currentAlbum" src="/../../enroute.jpg" sx={styles.imageInfo} />
+      <Avatar alt="currentAlbum" src={require("../../assets/enroute.jpg")} sx={styles.imageInfo} />
       <Box>
       <Typography variant="h2" sx={styles.title}>
         My Author info.
@@ -115,20 +111,20 @@ const Explore = () => {
       </Box>
       <Box sx={styles.albumsContainer}>
         <Typography variant="h5" sx={styles.subtitle}>
-          Últimos álbumes.
+          Lastest albums.
         </Typography>
         <Box sx={styles.albumsList}>
           {albums.map((album) => (
             <AlbumCard
               {...album}
               key={`album-${album._id}`}
-              songs={album.songs.length}
+              duration={album.duration}
             />
           ))}
         </Box>
         <Box sx={styles.singersContainer}>
           <Typography variant="h5" sx={styles.subtitle}>
-            Los artistas más escuchados.
+            Lastest authors added.
           </Typography>
           <Box sx={styles.singerList}>
             {singers.map((singer) => (

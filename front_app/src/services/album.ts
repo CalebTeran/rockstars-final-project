@@ -6,11 +6,12 @@ import { Singer } from "../models/singer";
 export const getAlbums = () => async (dispatch: AppDispatch) => {
   try {
     dispatch(setLoading(true));
-    const response = await fetch("http://localhost:8000/album");
-
+    const response = await fetch('');
+    //`${enviroment}/albums`
     if (response.status !== 200) return "";
 
-    const albums: Singer[] = await response.json();
+    const albums: any = await response.json();
+    console.log(albums.results);
     dispatch(setAlbums(albums));
   } catch (err) {
     throw err;

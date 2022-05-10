@@ -20,6 +20,7 @@ import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import MicExternalOnIcon from "@mui/icons-material/MicExternalOn";
+import { height } from "@mui/system";
 
 const Menu = () => {
   const [adminOpen, setAdminOpen] = useState(false);
@@ -34,7 +35,7 @@ const Menu = () => {
     () => [
       {
         text: "Enroute Music",
-        icon: <img src={require("../../enroute.jpg") } alt="logo" width={25} height={25} />,
+        icon: <img src={require("../../assets/enroute.jpg") } alt="logo" width={25} height={25} />,
         onClick: () => navigate("/"),
       },
       {
@@ -48,7 +49,7 @@ const Menu = () => {
         onClick: () => navigate("/albums"),
       },
       {
-        text: "My profile",
+        text: "Profile",
         icon: <ManageAccountsIcon />,
         onClick: () => navigate("/profile"),
       },
@@ -85,14 +86,13 @@ const Menu = () => {
   const styles: Styles = useMemo(
     () => ({
       drawerContainer: {
-        backgroundColor: "#000002",
         color: "#F4F5F6",
-        width: "200px",
+        width: "160px",
       },
       drawerItem: {
-        backgroundColor: "#000002",
+        width: "160px",
         color: "#F4F5F6",
-        width: "200px",
+        height: "50px",
       },
     }),
     []
